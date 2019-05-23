@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using WebStoreWebApi.Models;
 
 namespace WebStoreWebApi.Controllers
@@ -13,16 +14,21 @@ namespace WebStoreWebApi.Controllers
     public class UsersController : ControllerBase
     {
         private readonly WebStoreDbContext _context;
+        private readonly ILogger _logger;
 
-        public UsersController(WebStoreDbContext context)
+        public UsersController(WebStoreDbContext context, ILogger<UsersController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
+            _logger.LogDebug("Someone looking for user!");
+            _logger.LogInformation("Someone looking for user!");
+
             return await _context.Users.ToListAsync();
         }
 

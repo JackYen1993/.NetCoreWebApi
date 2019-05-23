@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
+using NLog.Web;
 
 namespace WebStoreWebApi
 {
@@ -7,11 +9,18 @@ namespace WebStoreWebApi
     {
         public static void Main(string[] args)
         {
+            NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
             CreateWebHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+                })
+                .UseNLog();  // NLog: setup NLog for Dependency injection
     }
 }
