@@ -4,7 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using WebStoreWebApi.AppSettingsClass;
 using WebStoreWebApi.Models;
 
 namespace WebStoreWebApi.Controllers
@@ -16,10 +19,15 @@ namespace WebStoreWebApi.Controllers
         private readonly WebStoreDbContext _context;
         private readonly ILogger _logger;
 
-        public UsersController(WebStoreDbContext context, ILogger<UsersController> logger)
+        private readonly IConfiguration _configuration;
+        private readonly IOptions<MySettings> _myConfigSetting;
+
+        public UsersController(WebStoreDbContext context, ILogger<UsersController> logger, IOptions<MySettings> myConfigSetting, IConfiguration configuration)
         {
             _context = context;
             _logger = logger;
+            _myConfigSetting = myConfigSetting;
+            _configuration = configuration;
         }
 
         // GET: api/Users
@@ -28,6 +36,13 @@ namespace WebStoreWebApi.Controllers
         {
             _logger.LogDebug("Someone looking for user!");
             _logger.LogInformation("Someone looking for user!");
+            _logger.LogWarning("Someone looking for user!");
+            _logger.LogError("Someone looking for user!");
+            _logger.LogCritical("Someone looking for user!");
+
+            // Get information from appsettings.json
+            //return Ok(_myConfigSetting.Value);
+            //return Ok(_configuration["MySettings:Name"]);
 
             return await _context.Users.ToListAsync();
         }
@@ -81,7 +96,6 @@ namespace WebStoreWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-            user.LastUpdated = DateTime.Now;
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 

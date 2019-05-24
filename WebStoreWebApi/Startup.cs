@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebStoreWebApi.AppSettingsClass;
 using WebStoreWebApi.Models;
 
 namespace WebStoreWebApi
@@ -23,6 +24,9 @@ namespace WebStoreWebApi
             services.AddDbContext<WebStoreDbContext>(options =>
                 options.UseLazyLoadingProxies()
                     .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            // Get data from appsettings.json
+            services.Configure<MySettings>(Configuration.GetSection("MySettings"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
