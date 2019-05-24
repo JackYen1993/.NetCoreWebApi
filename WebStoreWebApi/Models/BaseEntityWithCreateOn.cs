@@ -1,15 +1,9 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace WebStoreWebApi.Models
 {
-    public class BaseEntityWithCreateOn
+    public class BaseEntityWithCreateOn : BaseEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-
         public DateTime CreateOn { get; set; }
-
-        public DateTime LastUpdated { get; set; }
     }
 }
