@@ -31,7 +31,7 @@ namespace WebStoreWebApi.Controllers
         public async Task<ActionResult<UserAddress>> GetUserAddress(Guid id)
         {
             var userAddress = await _context.UserAddresses
-                                .Include(ua => ua.User)
+                                .Include(ua => ua.StoreUser)
                                 .FirstOrDefaultAsync(ua => ua.Id == id);
 
             if (userAddress == null)

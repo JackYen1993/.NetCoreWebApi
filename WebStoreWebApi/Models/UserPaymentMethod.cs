@@ -16,6 +16,6 @@ namespace WebStoreWebApi.Models
 
         public string BillingAddress { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual StoreUser StoreUser { get; set; }
     }
 }

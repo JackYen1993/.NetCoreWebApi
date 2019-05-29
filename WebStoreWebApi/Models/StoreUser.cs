@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebStoreWebApi.Models
 {
-    public class User : BaseEntity
+    public class StoreUser : BaseEntity
     {
         public string FName { get; set; }
 

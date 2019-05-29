@@ -31,7 +31,7 @@ namespace WebStoreWebApi.Controllers
         public async Task<IActionResult> GetUserPaymentMethod(Guid id)
         {
             var userPaymentMethod = await _context.UserPaymentMethods
-                                .Include(upm => upm.User)
+                                .Include(upm => upm.StoreUser)
                                 .FirstOrDefaultAsync(upm => upm.Id == id);
 
             if (userPaymentMethod == null)

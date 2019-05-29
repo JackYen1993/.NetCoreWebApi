@@ -20,7 +20,7 @@ namespace WebStoreWebApi.Models
 
         public Guid UserId { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual StoreUser StoreUser { get; set; }
 
         public virtual UserAddress UserAddress { get; set; }
 

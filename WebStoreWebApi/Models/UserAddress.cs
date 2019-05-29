@@ -24,7 +24,7 @@ namespace WebStoreWebApi.Models
 
         public string Country { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual StoreUser StoreUser { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<Order> Orders { get; set; }

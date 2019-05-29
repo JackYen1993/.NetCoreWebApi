@@ -32,7 +32,7 @@ namespace WebStoreWebApi.Controllers
         {
             var orderLine = await _context.OrderLines
                                 .Include(ol => ol.Order)
-                                .ThenInclude(o => o.User)
+                                .ThenInclude(o => o.StoreUser)
                                 .Include(ol => ol.Order)
                                 .ThenInclude(o => o.UserAddress)
                                 .Include(ol => ol.Product)

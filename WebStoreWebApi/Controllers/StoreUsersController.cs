@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,7 +15,8 @@ namespace WebStoreWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    [Authorize]
+    public class StoreUsersController : ControllerBase
     {
         private readonly WebStoreDbContext _context;
         private readonly ILogger _logger;
@@ -22,7 +24,8 @@ namespace WebStoreWebApi.Controllers
         private readonly IConfiguration _configuration;
         private readonly IOptions<MySettings> _myConfigSetting;
 
-        public UsersController(WebStoreDbContext context, ILogger<UsersController> logger, IOptions<MySettings> myConfigSetting, IConfiguration configuration)
+        public StoreUsersController(WebStoreDbContext context, ILogger<StoreUsersController> logger, 
+            IOptions<MySettings> myConfigSetting, IConfiguration configuration)
         {
             _context = context;
             _logger = logger;
@@ -32,7 +35,7 @@ namespace WebStoreWebApi.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<StoreUser>>> GetUsers()
         {
             _logger.LogDebug("Someone looking for user!");
             _logger.LogInformation("Someone looking for user!");
@@ -44,14 +47,14 @@ namespace WebStoreWebApi.Controllers
             //return Ok(_myConfigSetting.Value);
             //return Ok(_configuration["MySettings:Name"]);
 
-            return await _context.Users.ToListAsync();
+            return await _context.StoreUsers.ToListAsync();
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(Guid id)
+        public async Task<ActionResult<StoreUser>> GetUser(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.StoreUsers.FindAsync(id);
 
             if (user == null)
             {
@@ -63,7 +66,7 @@ namespace WebStoreWebApi.Controllers
 
         // PUT: api/Users/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(Guid id, User user)
+        public async Task<IActionResult> PutUser(Guid id, StoreUser user)
         {
             if (id != user.Id)
             {
@@ -94,9 +97,9 @@ namespace WebStoreWebApi.Controllers
 
         // POST: api/Users
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<StoreUser>> PostUser(StoreUser user)
         {
-            _context.Users.Add(user);
+            _context.StoreUsers.Add(user);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
@@ -106,13 +109,13 @@ namespace WebStoreWebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.StoreUsers.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.StoreUsers.Remove(user);
             await _context.SaveChangesAsync();
 
             return Ok("Deleted!");
@@ -120,7 +123,7 @@ namespace WebStoreWebApi.Controllers
 
         private bool UserExists(Guid id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.StoreUsers.Any(e => e.Id == id);
         }
     }
 }

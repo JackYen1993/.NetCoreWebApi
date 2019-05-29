@@ -1,18 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebStoreWebApi.Models
 {
-    public class WebStoreDbContext : DbContext
+    public class WebStoreDbContext : IdentityDbContext<ApplicationUser>
     {
         public WebStoreDbContext(DbContextOptions<WebStoreDbContext> options)
             : base(options)
         {
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<StoreUser> StoreUsers { get; set; }
 
         public DbSet<UserAddress> UserAddresses { get; set; }
 
@@ -36,9 +37,11 @@ namespace WebStoreWebApi.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             // Order Table FK
             modelBuilder.Entity<Order>()
-                .HasOne(o => o.User)
+                .HasOne(o => o.StoreUser)
                 .WithMany(u => u.Orders)
                 .HasForeignKey(o => o.UserId)
                 .OnDelete(DeleteBehavior.Cascade);

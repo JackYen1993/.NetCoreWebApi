@@ -30,9 +30,9 @@ namespace WebStoreWebApi.Controllers
         public async Task<IActionResult> GetOrder(Guid id)
         {
             var order = await _context.Orders
-                                .Include(o => o.User)
+                                .Include(o => o.StoreUser)
                                 .Include(o => o.UserAddress)
-                                .ThenInclude(ua => ua.User)
+                                .ThenInclude(ua => ua.StoreUser)
                                 .FirstOrDefaultAsync(o => o.Id == id);
 
             if (order == null)
