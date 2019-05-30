@@ -21,16 +21,19 @@ namespace WebStoreWebApi.Controllers
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
         public AccountsController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
             IConfiguration configuration
             )
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _configuration = configuration;
         }
 
@@ -60,6 +63,11 @@ namespace WebStoreWebApi.Controllers
 
             if (result.Succeeded)
             {
+                if (!await _roleManager.RoleExistsAsync(model.Role))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(model.Role));
+                }
+                await _userManager.AddToRoleAsync(user, model.Role);
                 await _signInManager.SignInAsync(user, false);
                 return Ok(GenerateJwtToken(model.Email, user));
             }

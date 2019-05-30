@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading;
@@ -73,6 +74,10 @@ namespace WebStoreWebApi.Models
                 .HasOne(ol => ol.Order)
                 .WithMany(o => o.OrderLines)
                 .HasForeignKey(ol => ol.OrderId);
+
+            // Seed data
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = Constants.Admin, NormalizedName = Constants.Admin.ToUpper() });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = Constants.Member, NormalizedName = Constants.Member.ToUpper() });
         }
 
         public override int SaveChanges()

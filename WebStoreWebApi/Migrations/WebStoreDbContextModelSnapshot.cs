@@ -41,6 +41,22 @@ namespace WebStoreWebApi.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "8899c75b-4462-4c9d-bbec-917c73c8728e",
+                            ConcurrencyStamp = "35dc2fbb-3de1-415c-910e-ddf642172e0a",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "961cebfb-f341-4eae-a903-91d9c507af0f",
+                            ConcurrencyStamp = "15ae07eb-dc73-4a42-bd5d-8eca35361a07",
+                            Name = "Member",
+                            NormalizedName = "MEMBER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -85,9 +101,11 @@ namespace WebStoreWebApi.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("ProviderKey");
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -118,9 +136,11 @@ namespace WebStoreWebApi.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value");
 

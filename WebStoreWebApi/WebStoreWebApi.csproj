@@ -7,12 +7,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190529054647_AddIdentityDbContext.cs" />
+    <Compile Remove="Migrations\20190529054647_AddIdentityDbContext.Designer.cs" />
     <Compile Remove="Migrations\20190529063704_fortest.cs" />
     <Compile Remove="Migrations\20190529063704_fortest.Designer.cs" />
     <Compile Remove="Migrations\20190529065003_test.cs" />
     <Compile Remove="Migrations\20190529065003_test.Designer.cs" />
     <Compile Remove="Migrations\20190529065031_test.cs" />
     <Compile Remove="Migrations\20190529065031_test.Designer.cs" />
+    <Compile Remove="Migrations\20190529065307_AddApplicationUser.cs" />
+    <Compile Remove="Migrations\20190529065307_AddApplicationUser.Designer.cs" />
+    <Compile Remove="Migrations\20190530090547_AddDefaultRole.cs" />
+    <Compile Remove="Migrations\20190530090547_AddDefaultRole.Designer.cs" />
+    <Compile Remove="Migrations\20190530090725_AddDefaultRole.cs" />
+    <Compile Remove="Migrations\20190530090725_AddDefaultRole.Designer.cs" />
+    <Compile Remove="Migrations\20190530090804_AddDefaultRole.cs" />
+    <Compile Remove="Migrations\20190530090804_AddDefaultRole.Designer.cs" />
+    <Compile Remove="Migrations\20190530090930_AddDefaultRole.cs" />
+    <Compile Remove="Migrations\20190530090930_AddDefaultRole.Designer.cs" />
+    <Compile Remove="Migrations\20190530091343_AddApplicationUserAndDefaultRole.cs" />
+    <Compile Remove="Migrations\20190530091343_AddApplicationUserAndDefaultRole.Designer.cs" />
+    <Compile Remove="Migrations\20190530091749_AddApplicationUser.cs" />
+    <Compile Remove="Migrations\20190530091749_AddApplicationUser.Designer.cs" />
+    <Compile Remove="Migrations\20190530092314_AddIdentityDbContext.cs" />
+    <Compile Remove="Migrations\20190530092314_AddIdentityDbContext.Designer.cs" />
+    <Compile Remove="Migrations\20190530092421_AddIdentityWithDefaultRole.cs" />
+    <Compile Remove="Migrations\20190530092421_AddIdentityWithDefaultRole.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
