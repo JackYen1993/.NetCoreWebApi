@@ -33,7 +33,7 @@ namespace WebStoreWebApi.Controllers
             _configuration = configuration;
         }
 
-        // GET: api/Users
+        // GET: api/StoreUsers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StoreUser>>> GetUsers()
         {
@@ -50,7 +50,7 @@ namespace WebStoreWebApi.Controllers
             return await _context.StoreUsers.ToListAsync();
         }
 
-        // GET: api/Users/5
+        // GET: api/StoreUsers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<StoreUser>> GetUser(Guid id)
         {
@@ -64,7 +64,7 @@ namespace WebStoreWebApi.Controllers
             return user;
         }
 
-        // PUT: api/Users/5
+        // PUT: api/StoreUsers/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(Guid id, StoreUser user)
         {
@@ -73,7 +73,6 @@ namespace WebStoreWebApi.Controllers
                 return BadRequest();
             }
 
-            user.LastUpdated = DateTime.Now;
             _context.Entry(user).State = EntityState.Modified;
 
             try
@@ -95,7 +94,7 @@ namespace WebStoreWebApi.Controllers
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
-        // POST: api/Users
+        // POST: api/StoreUsers
         [HttpPost]
         public async Task<ActionResult<StoreUser>> PostUser(StoreUser user)
         {
@@ -105,7 +104,7 @@ namespace WebStoreWebApi.Controllers
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/StoreUsers/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
