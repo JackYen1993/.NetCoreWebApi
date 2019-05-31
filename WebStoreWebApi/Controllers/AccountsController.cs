@@ -45,7 +45,7 @@ namespace WebStoreWebApi.Controllers
             if (result.Succeeded)
             {
                 var user = _userManager.Users.SingleOrDefault(u => u.Email == model.Email);
-                return Ok(GenerateJwtToken(model.Email, user));
+                return Ok(GenerateJwtToken(user));
             }
 
             return Ok("Login Fail");
@@ -69,20 +69,15 @@ namespace WebStoreWebApi.Controllers
                 }
                 await _userManager.AddToRoleAsync(user, model.Role);
                 await _signInManager.SignInAsync(user, false);
-                return Ok(GenerateJwtToken(model.Email, user));
+                return Ok(GenerateJwtToken(user));
             }
 
             return Ok("Register Fail");
         }
 
-        private string GenerateJwtToken(string email, ApplicationUser user)
+        private string GenerateJwtToken(ApplicationUser user)
         {
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-
+            var claims = GetValidClaims(user).Result;
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:JwtKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expires = DateTime.Now.AddDays(Convert.ToDouble(_configuration["JWT:JwtExpireDays"]));
@@ -96,6 +91,21 @@ namespace WebStoreWebApi.Controllers
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private async Task<List<Claim>> GetValidClaims(ApplicationUser user)
+        {
+            // Get user role name
+            var role = await _userManager.GetRolesAsync(user);
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.Role, role.First())
+            };
+
+            return claims;
         }
     }
 }

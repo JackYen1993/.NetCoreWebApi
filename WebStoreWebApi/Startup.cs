@@ -53,6 +53,7 @@ namespace WebStoreWebApi
                         ValidIssuer = Configuration["JWT:JwtIssuer"],
                         ValidAudience = Configuration["JWT:JwtAudience"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:JwtKey"])),
+                        RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
                         ValidateLifetime = true,
                         RequireExpirationTime = true,
                         ClockSkew = TimeSpan.Zero

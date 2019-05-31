@@ -15,7 +15,7 @@ namespace WebStoreWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = Constants.Member)]
     public class StoreUsersController : ControllerBase
     {
         private readonly WebStoreDbContext _context;
