@@ -12,6 +12,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Threading.Tasks;
 using WebStoreWebApi.AppSettingsClass;
+using WebStoreWebApi.Middlewares;
 using WebStoreWebApi.Models;
 
 namespace WebStoreWebApi
@@ -89,10 +90,13 @@ namespace WebStoreWebApi
                 app.UseHsts();
             }
 
-            // Use Authentication
-            app.UseAuthentication();
+            // Add exception middleware
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
+            
             app.UseMvc();
         }
     }

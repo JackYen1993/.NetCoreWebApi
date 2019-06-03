@@ -33,6 +33,12 @@
     <Compile Remove="Migrations\20190530092314_AddIdentityDbContext.Designer.cs" />
     <Compile Remove="Migrations\20190530092421_AddIdentityWithDefaultRole.cs" />
     <Compile Remove="Migrations\20190530092421_AddIdentityWithDefaultRole.Designer.cs" />
+    <Compile Remove="Migrations\20190603063956_Test.cs" />
+    <Compile Remove="Migrations\20190603063956_Test.Designer.cs" />
+    <Compile Remove="Migrations\20190603065237_Test.cs" />
+    <Compile Remove="Migrations\20190603065237_Test.Designer.cs" />
+    <Compile Remove="Migrations\20190603065405_Test1.cs" />
+    <Compile Remove="Migrations\20190603065405_Test1.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

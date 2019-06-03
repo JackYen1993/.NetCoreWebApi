@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebStoreWebApi.Exceptions;
 using WebStoreWebApi.Models;
 
 namespace WebStoreWebApi.Controllers
@@ -22,6 +24,12 @@ namespace WebStoreWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOrder()
         {
+            // Default exception
+            //throw new Exception();
+
+            // Custom exception
+            //throw new CustomException((int)HttpStatusCode.NotFound, "Not Found", "Not Found");
+
             return Ok(await _context.Orders.ToListAsync());
         }
 
