@@ -41,6 +41,13 @@ namespace WebStoreWebApi
             // Get data from appsettings.json
             services.Configure<MySettings>(Configuration.GetSection("MySettings"));
 
+            // Allow Cors for every resource
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowCors",
+                    builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            });
+
             // Add Jwt Authentication
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // Remove default claims
             services
@@ -96,7 +103,7 @@ namespace WebStoreWebApi
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
-            
+
             app.UseMvc();
         }
     }
