@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
+//using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebStoreWebApi.Exceptions;
+using WebStoreWebApi.Extentions;
+//using WebStoreWebApi.Exceptions;
 using WebStoreWebApi.Models;
 
 namespace WebStoreWebApi.Controllers
@@ -29,6 +30,9 @@ namespace WebStoreWebApi.Controllers
 
             // Custom exception
             //throw new CustomException((int)HttpStatusCode.NotFound, "Not Found", "Not Found");
+
+            // Set session
+            //HttpContext.Session.SetObject("user", "12345");
 
             return Ok(await _context.Orders.ToListAsync());
         }

@@ -48,6 +48,10 @@ namespace WebStoreWebApi
                     builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
 
+            // Add session
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
             // Add Jwt Authentication
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // Remove default claims
             services
@@ -103,6 +107,8 @@ namespace WebStoreWebApi
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
+
+            app.UseSession();
 
             app.UseMvc();
         }

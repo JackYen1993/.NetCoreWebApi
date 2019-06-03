@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebStoreWebApi.Extentions;
 using WebStoreWebApi.Models;
 
 namespace WebStoreWebApi.Controllers
@@ -23,6 +24,12 @@ namespace WebStoreWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
+            // Get session
+            //var session = HttpContext.Session.GetObject<string>("user");
+
+            // Remove session
+            //HttpContext.Session.Remove("user");
+
             return await _context.Products.ToListAsync();
         }
 
