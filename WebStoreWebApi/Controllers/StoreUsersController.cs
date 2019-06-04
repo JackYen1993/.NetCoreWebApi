@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebStoreWebApi.AppSettingsClass;
+using WebStoreWebApi.Filters;
 using WebStoreWebApi.Models;
 
 namespace WebStoreWebApi.Controllers
@@ -54,14 +55,10 @@ namespace WebStoreWebApi.Controllers
 
         // GET: api/StoreUsers/5
         [HttpGet("{id}")]
+        [ServiceFilter(typeof(ValidateIdActionFilter<StoreUser>))]
         public async Task<ActionResult<StoreUser>> GetUser(Guid id)
         {
             var user = await _context.StoreUsers.FindAsync(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
 
             return user;
         }

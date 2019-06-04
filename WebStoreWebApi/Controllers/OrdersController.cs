@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebStoreWebApi.Extentions;
+using WebStoreWebApi.Filters;
 //using WebStoreWebApi.Exceptions;
 using WebStoreWebApi.Models;
 
@@ -39,6 +40,7 @@ namespace WebStoreWebApi.Controllers
 
         // GET: api/Orders/5
         [HttpGet("{id}")]
+        [ServiceFilter(typeof(ValidateIdActionFilter<Order>))]
         public async Task<IActionResult> GetOrder(Guid id)
         {
             var order = await _context.Orders

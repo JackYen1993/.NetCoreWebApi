@@ -12,6 +12,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Threading.Tasks;
 using WebStoreWebApi.AppSettingsClass;
+using WebStoreWebApi.Filters;
 using WebStoreWebApi.Middlewares;
 using WebStoreWebApi.Models;
 
@@ -84,6 +85,10 @@ namespace WebStoreWebApi
                         }
                     };
                 });
+
+            // Add action filter
+            services.AddScoped<ValidateIdActionFilter<StoreUser>>();
+            services.AddScoped<ValidateIdActionFilter<Order>>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

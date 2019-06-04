@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using WebStoreWebApi.Interfaces;
 
 namespace WebStoreWebApi.Models
 {
-    public class BaseEntity
+    public class BaseEntity : IBaseEntity
     {
         [Key]
         public Guid Id { get; set; }
